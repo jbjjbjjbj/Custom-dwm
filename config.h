@@ -53,6 +53,7 @@ static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%"
 static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL};
 static const char *brightup[]       = { "xbacklight", "-inc", "10", NULL};
 static const char *brightdown[]     = { "xbacklight", "-dec", "10", NULL};
+static const char *exitXsession[]   = { "/home/julian/.dwmSession.sh", "-e" };
 
 #define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
@@ -104,7 +105,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_e,      quit,           {0} },
+	{ MODKEY|ShiftMask,             XK_e,      spawn,           {.v = exitXsession} },
+	{ MODKEY|ShiftMask,             XK_r,      quit,           {0} },
 	{ 0,                       XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
 	{ 0,                       XF86XK_AudioMute, spawn, {.v = mutevol } },
 	{ 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
