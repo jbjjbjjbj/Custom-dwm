@@ -39,12 +39,40 @@ static const Rule rules[] = {
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const float zenAdd = 0.10;
+static const int zenStackDist = 20;
+
+static void zen(Monitor *m) {
+	//Number of clients
+	unsigned int n = 0;
+	unsigned int i;
+	Client *c;
+
+	unsigned int gw = m->ww * 0.5 * (m->mfact - zenAdd);
+	unsigned int gh = m->wh * 0.5 * (m->mfact - zenAdd);
+
+	//Count clients
+	for (c = m->clients; c; c = c->next)
+		if (ISVISIBLE(c))
+			n++;
+
+	if ( n > 0 ) {
+		snprintf(m->ltsymbol, sizeof m->ltsymbol, "|%d|", n);
+	}
+	
+	//For each client c
+	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
+		//Resize til fuldscreen
+		resize(c, m->wx + gw + i * zenStackDist, m->wy + gh + i * zenStackDist, m->ww - 2 * c->bw - 2 * gw, m->wh - 2 * c->bw - 2 * gh, 0);
+	}
+}
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+	{ "ZEN",      zen },
 	{ "TTT",	  bstack },
 };
 
@@ -90,7 +118,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY|ShiftMask,				XK_t,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,	          			XK_z,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY|ShiftMask,				XK_t,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
