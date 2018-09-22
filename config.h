@@ -57,7 +57,7 @@ static void zen(Monitor *m) {
 			n++;
 
 	if ( n > 0 ) {
-		snprintf(m->ltsymbol, sizeof m->ltsymbol, "|%d|", n);
+		snprintf(m->ltsymbol, sizeof m->ltsymbol, "]%d[", n);
 	}
 	
 	//For each client c
@@ -72,7 +72,7 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
-	{ "ZEN",      zen },
+	{ "]Z[",      zen },
 	{ "TTT",	  bstack },
 };
 
