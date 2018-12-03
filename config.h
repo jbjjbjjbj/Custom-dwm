@@ -82,8 +82,8 @@ static const Layout layouts[] = {
 static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL};
 static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL};
 static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL};
-static const char *brightup[]       = { "xbacklight", "-inc", "10", NULL};
-static const char *brightdown[]     = { "xbacklight", "-dec", "10", NULL};
+static const char *brightup[]       = { "xbacklight", "-inc", "5", NULL};
+static const char *brightdown[]     = { "xbacklight", "-dec", "5", NULL};
 static const char *exitXsession[]   = { "/home/julian/.dwmSession.sh", "-e" };
 
 #define MODKEY Mod1Mask
@@ -99,7 +99,7 @@ static const char *exitXsession[]   = { "/home/julian/.dwmSession.sh", "-e" };
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "terminator", NULL };
+static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
