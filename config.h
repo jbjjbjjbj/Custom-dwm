@@ -10,8 +10,8 @@ static const char dmenufont[]       = "monospace:size=10";
 static const char normbordercolor[] = "#444444";
 static const char normbgcolor[]     = "#222222";
 static const char normfgcolor[]     = "#bbbbbb";
-static const char selbordercolor[]  = "#005577";
-static const char selbgcolor[]      = "#005577";
+static const char selbordercolor[]  = "#668166";
+static const char selbgcolor[]      = "#668166";
 static const char selfgcolor[]      = "#eeeeee";
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -85,6 +85,9 @@ static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "togg
 static const char *brightup[]       = { "xbacklight", "-inc", "5", NULL};
 static const char *brightdown[]     = { "xbacklight", "-dec", "5", NULL};
 static const char *exitXsession[]   = { "/home/julian/.dwmSession.sh", "-e" };
+static const char *musicPause[]          = {"dbus-send", "--print-reply", "--dest=org.mpris.MediaPlayer2.spotify", "/org/mpris/MediaPlayer2", "org.mpris.MediaPlayer2.Player.PlayPause"};
+static const char *musicPrev[]          = {"dbus-send", "--print-reply", "--dest=org.mpris.MediaPlayer2.spotify", "/org/mpris/MediaPlayer2", "org.mpris.MediaPlayer2.Player.Previous"};
+static const char *musicNext[]          = {"dbus-send", "--print-reply", "--dest=org.mpris.MediaPlayer2.spotify", "/org/mpris/MediaPlayer2", "org.mpris.MediaPlayer2.Player.Next"};
 
 #define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
@@ -144,7 +147,10 @@ static Key keys[] = {
 	{ 0,                       XF86XK_AudioMute, spawn, {.v = mutevol } },
 	{ 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
 	{ 0,                 XF86XK_MonBrightnessUp,    spawn,            {.v = brightup } },
-	{ 0,                 XF86XK_MonBrightnessDown,  spawn,            {.v = brightdown } }
+	{ 0,                 XF86XK_MonBrightnessDown,  spawn,            {.v = brightdown } },
+	{ 0,				XF86XK_AudioPlay ,  spawn,            {.v = musicPause } },
+	{ 0,				XF86XK_AudioNext ,  spawn,            {.v = musicNext } },
+	{ 0,				XF86XK_AudioPrev ,  spawn,            {.v = musicPrev } }
 
 };
 
