@@ -86,6 +86,8 @@ static const char *brightup[]       = { "xbacklight", "-inc", "5", NULL};
 static const char *brightdown[]     = { "xbacklight", "-dec", "5", NULL};
 static const char *exitXsession[]   = { "/home/julian/.dwmSession.sh", "-e" };
 
+static const char *openRanger[]     = { "/home/julian/Scripts/openInRanger.sh" };
+
 #define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
@@ -144,8 +146,8 @@ static Key keys[] = {
 	{ 0,                       XF86XK_AudioMute, spawn, {.v = mutevol } },
 	{ 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
 	{ 0,                 XF86XK_MonBrightnessUp,    spawn,            {.v = brightup } },
-	{ 0,                 XF86XK_MonBrightnessDown,  spawn,            {.v = brightdown } }
-
+	{ 0,                 XF86XK_MonBrightnessDown,  spawn,            {.v = brightdown } },
+	{ MODKEY,                       XK_r,      spawn,          {.v = openRanger } }
 };
 
 /* button definitions */
