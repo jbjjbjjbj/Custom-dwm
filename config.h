@@ -87,6 +87,7 @@ static const char *brightdown[]     = { "xbacklight", "-dec", "5", NULL};
 static const char *exitXsession[]   = { "/home/julian/.dwmSession.sh", "-e" };
 
 static const char *openRanger[]     = { "/home/julian/Scripts/openInRanger.sh" };
+static const char *mountFstab[]     = { "/home/julian/Scripts/mountFstab.sh" };
 
 #define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
@@ -147,7 +148,8 @@ static Key keys[] = {
 	{ 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
 	{ 0,                 XF86XK_MonBrightnessUp,    spawn,            {.v = brightup } },
 	{ 0,                 XF86XK_MonBrightnessDown,  spawn,            {.v = brightdown } },
-	{ MODKEY,                       XK_r,      spawn,          {.v = openRanger } }
+	{ MODKEY,                       XK_r,      spawn,          {.v = openRanger } },
+	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = mountFstab } }
 };
 
 /* button definitions */
