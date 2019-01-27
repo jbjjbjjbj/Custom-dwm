@@ -88,6 +88,7 @@ static const char *exitXsession[]   = { "/home/julian/.dwmSession.sh", "-e" };
 static const char *musicPause[]          = {"dbus-send", "--print-reply", "--dest=org.mpris.MediaPlayer2.spotify", "/org/mpris/MediaPlayer2", "org.mpris.MediaPlayer2.Player.PlayPause"};
 static const char *musicPrev[]          = {"dbus-send", "--print-reply", "--dest=org.mpris.MediaPlayer2.spotify", "/org/mpris/MediaPlayer2", "org.mpris.MediaPlayer2.Player.Previous"};
 static const char *musicNext[]          = {"dbus-send", "--print-reply", "--dest=org.mpris.MediaPlayer2.spotify", "/org/mpris/MediaPlayer2", "org.mpris.MediaPlayer2.Player.Next"};
+static const char *launchScript[]          = {"/home/julian/lc", "--dmenu" };
 
 #define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
@@ -150,8 +151,8 @@ static Key keys[] = {
 	{ 0,                 XF86XK_MonBrightnessDown,  spawn,            {.v = brightdown } },
 	{ 0,				XF86XK_AudioPlay ,  spawn,            {.v = musicPause } },
 	{ 0,				XF86XK_AudioNext ,  spawn,            {.v = musicNext } },
-	{ 0,				XF86XK_AudioPrev ,  spawn,            {.v = musicPrev } }
-
+	{ 0,				XF86XK_AudioPrev ,  spawn,            {.v = musicPrev } },
+	{ MODKEY,                      XK_semicolon,      spawn,          {.v = launchScript } }
 };
 
 /* button definitions */
