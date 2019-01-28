@@ -1,6 +1,5 @@
 /* See LICENSE file for copyright and license details. */
 #include <X11/XF86keysym.h>
-#include "bstack.c"
 
 /* appearance */
 static const char *fonts[] = {
@@ -53,8 +52,8 @@ static void zen(Monitor *m) {
 	unsigned int gh = m->wh * 0.5 * (m->mfact - zenAdd);
 
 	//Count clients
-	for (c = m->clients; c; c = c->next)
-		if (ISVISIBLE(c))
+	for (c = m->cl->clients; c; c = c->next)
+		if (ISVISIBLE(c, m))
 			n++;
 
 	if ( n > 0 ) {
@@ -62,7 +61,7 @@ static void zen(Monitor *m) {
 	}
 	
 	//For each client c
-	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++) {
+	for (i = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), i++) {
 		//Resize til fuldscreen
 		resize(c, m->wx + gw + i * zenStackDist, m->wy + gh + i * zenStackDist, m->ww - 2 * c->bw - 2 * gw, m->wh - 2 * c->bw - 2 * gh, 0);
 	}
@@ -74,7 +73,6 @@ static const Layout layouts[] = {
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 	{ "]Z[",      zen },
-	{ "TTT",	  bstack },
 };
 
 /* key definitions */
@@ -104,6 +102,8 @@ static const char *launchScript[]          = {"/home/julian/lc", "--dmenu" };
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
+
+#include "keepfloatingposition.c"
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
