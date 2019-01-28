@@ -1,6 +1,5 @@
 /* See LICENSE file for copyright and license details. */
 #include <X11/XF86keysym.h>
-#include "bstack.c"
 
 /* appearance */
 static const char *fonts[] = {
@@ -74,7 +73,6 @@ static const Layout layouts[] = {
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 	{ "]Z[",      zen },
-	{ "TTT",	  bstack },
 };
 
 /* key definitions */
