@@ -6,11 +6,11 @@ static const char *fonts[] = {
 	"monospace:size=10"
 };
 static const char dmenufont[]       = "monospace:size=10";
-static const char normbordercolor[] = "#444444";
-static const char normbgcolor[]     = "#222222";
+static const char normbordercolor[] = "#352e2f";
+static const char normbgcolor[]     = "#352e2f";
 static const char normfgcolor[]     = "#bbbbbb";
-static const char selbordercolor[]  = "#668166";
-static const char selbgcolor[]      = "#668166";
+static const char selbordercolor[]  = "#5f6355";
+static const char selbgcolor[]      = "#5f6355";
 static const char selfgcolor[]      = "#eeeeee";
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -32,8 +32,8 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Thunderbird",  NULL,       NULL,       1 << 7,       0,           -1 },
 	{ "Evolution",  NULL,       NULL,       1 << 7,       0,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
-	{ "qutebrowser", NULL, NULL,          1 << 6,      0 ,           -1 },
+	{ "Firefox",  NULL,       NULL,       1 << 6,       0,           -1 },
+	{ "qutebrowser", NULL, NULL,          1 << 8,      0 ,           -1 },
 };
 
 /* layout(s) */
