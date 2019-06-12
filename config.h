@@ -89,7 +89,7 @@ static const char *exitXsession[]   = { "/home/julian/.dwmSession.sh", "-e" };
 static const char *musicPause[]          = {"dbus-send", "--print-reply", "--dest=org.mpris.MediaPlayer2.spotify", "/org/mpris/MediaPlayer2", "org.mpris.MediaPlayer2.Player.PlayPause"};
 static const char *musicPrev[]          = {"dbus-send", "--print-reply", "--dest=org.mpris.MediaPlayer2.spotify", "/org/mpris/MediaPlayer2", "org.mpris.MediaPlayer2.Player.Previous"};
 static const char *musicNext[]          = {"dbus-send", "--print-reply", "--dest=org.mpris.MediaPlayer2.spotify", "/org/mpris/MediaPlayer2", "org.mpris.MediaPlayer2.Player.Next"};
-static const char *launchScript[]          = {"/home/julian/lc", "--dmenu" };
+static const char *launchScript[]          = {"/home/julian/Scripts/lc", "--dmenu" };
 
 #define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
