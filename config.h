@@ -1,7 +1,8 @@
 /* See LICENSE file for copyright and license details. */
+#include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -30,10 +31,11 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Evolution", NULL,       NULL,       0 << 8,       0,           -1 },
-	{ "Firefox",   NULL,       NULL,       1 << 9,       0,           -1 },
-	{ "Quassel",   NULL,       NULL,       1 << 7,       0,           -1 },
+	/* class           instance    title       tags mask     isfloating   monitor */
+	{ "Firefox",       NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Evolution",     NULL,       NULL,       1 << 7,       0,           -1 },
+	{ "quassel", NULL,       NULL,       1 << 6,       0,           -1 },
+	{ "Liferea",       NULL,       NULL,       1 << 6,       0,           -1 },
 };
 
 /* layout(s) */
@@ -90,6 +92,15 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "rofi", "-show", "drun", NULL };
 static const char *termcmd[]  = { "termite", NULL };
+static const char *launchcmd[] = {"/home/julian/Scripts/lc", "--dmenu", NULL};
+static const char *exitXcmd[] = {"/home/julian/Scripts/dwmsession", "-e", NULL};
+
+// Media keys
+static const char *backInccmd[] = { "xbacklight", "-inc", "5", NULL };
+static const char *backDeccmd[] = { "xbacklight", "-dec", "5", NULL };
+static const char *volDowncmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
+static const char *volUpcmd[] =   { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
+static const char *volMutecmd[] = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -98,8 +109,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_u,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_o,      incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_u,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
@@ -107,7 +118,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_w,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_z,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
@@ -126,7 +137,14 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ShiftMask , XK_r                     , quit  , {0} }                  ,
+    { MODKEY|ShiftMask , XK_e                     , spawn , {.v = exitXcmd} }         ,
+    { 0                , XF86XK_AudioLowerVolume  , spawn , {.v = volDowncmd } }   ,
+    { 0                , XF86XK_AudioMute         , spawn , {.v = volMutecmd } }   ,
+    { 0                , XF86XK_AudioRaiseVolume  , spawn , {.v = volUpcmd   } }   ,
+    { 0                , XF86XK_MonBrightnessUp   , spawn , {.v = backInccmd } }   ,
+    { 0                , XF86XK_MonBrightnessDown , spawn , {.v = backDeccmd } }   ,
+    { MODKEY           , XK_semicolon             , spawn , {.v = launchcmd } },
 };
 
 /* button definitions */
